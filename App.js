@@ -7,6 +7,7 @@ exports.app = void 0;
 var express_1 = __importDefault(require("express"));
 var DB_config_1 = require("./configs/DB-config");
 var Central_router_1 = require("./routers/Central-router");
+var cors_1 = __importDefault(require("cors"));
 // Connect to Database
 DB_config_1.DatabaseConfiguration.connectDB();
 var App = /** @class */ (function () {
@@ -42,6 +43,8 @@ var App = /** @class */ (function () {
         });
     };
     App.prototype._middlewares = function () {
+        // CORS Enable
+        this._framework.use(cors_1.default());
         // Express Middleware Built-in for bodyparser
         this._framework.use(express_1.default.json());
         this._framework.use(express_1.default.urlencoded({ extended: true }));
