@@ -10,6 +10,11 @@ var ErrorHandler = /** @class */ (function () {
         var status;
         // Error - Switch case
         switch (err.name) {
+            case 'Product not Found for Cart':
+                statusCode = 404;
+                message = "Product not Found for Cart: Cannot find product for cart, so we can't create a cart";
+                status = 'Not Found';
+                break;
             case 'Carts not Found for Order':
                 statusCode = 404;
                 message = "Carts not Found for Order: Cannot find carts for order, so we can't create an order";

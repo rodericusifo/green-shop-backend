@@ -58,6 +58,9 @@ var CartController = /** @class */ (function () {
                             })];
                     case 1:
                         foundOneProduct = _a.sent();
+                        if (!foundOneProduct) {
+                            throw { name: 'Product not Found for Cart' };
+                        }
                         createOneCart = {
                             quantity: req.body.quantity,
                             Product: req.body.ProductID,
