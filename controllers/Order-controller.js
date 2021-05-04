@@ -45,7 +45,7 @@ var OrderController = /** @class */ (function () {
     }
     OrderController.createOne = function (req, res, next) {
         return __awaiter(this, void 0, void 0, function () {
-            var createOneOrder, newOrder, savedOrder_1, foundAllCart, err_1;
+            var foundAllCart, createOneOrder, newOrder, savedOrder_1, err_1;
             var _this = this;
             return __generator(this, function (_a) {
                 switch (_a.label) {
@@ -58,6 +58,14 @@ var OrderController = /** @class */ (function () {
                                 name: 'Buyer Name, Buyer Address, and Buyer Phone Number Required'
                             };
                         }
+                        return [4 /*yield*/, Cart_model_1.CartModel.find({
+                                User: req.params.userID
+                            })];
+                    case 1:
+                        foundAllCart = _a.sent();
+                        if (foundAllCart.length < 1) {
+                            throw { name: 'Carts not Found for Order' };
+                        }
                         createOneOrder = {
                             buyer: {
                                 name: req.body.buyerName,
@@ -68,19 +76,11 @@ var OrderController = /** @class */ (function () {
                         };
                         newOrder = new Order_model_1.OrderModel(createOneOrder);
                         return [4 /*yield*/, newOrder.save()];
-                    case 1:
+                    case 2:
                         savedOrder_1 = _a.sent();
                         return [4 /*yield*/, User_model_1.UserModel.findOneAndUpdate({ _id: savedOrder_1.User }, { $push: { Orders: savedOrder_1._id } }, { new: true })];
-                    case 2:
-                        _a.sent();
-                        return [4 /*yield*/, Cart_model_1.CartModel.find({
-                                User: savedOrder_1.User
-                            })];
                     case 3:
-                        foundAllCart = _a.sent();
-                        if (foundAllCart.length < 1) {
-                            throw { name: 'Carts not Found for Order' };
-                        }
+                        _a.sent();
                         foundAllCart.forEach(function (Cart) { return __awaiter(_this, void 0, void 0, function () {
                             return __generator(this, function (_a) {
                                 switch (_a.label) {
